@@ -39,11 +39,13 @@ public class Exercicio {
         System.out.println("Peso por repetição: " + peso + " Kg");
         System.out.println("Tempo por série: " + tempoSegundos + " s");
         System.out.println("Volume (carga) total: " + calcularVolume() + " kg");
+    }
         
     public String toString() {
         return nome + " - " + series + "x" + repeticoes + " - " + peso + "kg, tempo por série: " + tempoSegundos + "s";
     }
 }
+
 
 
 
