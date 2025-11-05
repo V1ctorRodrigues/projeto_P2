@@ -22,13 +22,8 @@ public class Treino {
     }
 
     public boolean removerExercicio(String nome) {
-        for (int i = 0; i < exercicios.size(); i++) {
-            if (exercicios.get(i).getNome().equalsIgnoreCase(nome)) {
-                exercicios.remove(i);
-                return true;
-            }
-        }
-        return false;
+      return exercicios.removeIf(e -> e.getNome().equalsIgnoreCase(nome));
+    
     }
 
     public double calcularCargaTotal() {
@@ -51,12 +46,12 @@ public class Treino {
  
     public void exibirResumoTreino() {
         System.out.println("Treino: " + nome);
-        System.out.println("Exercícios:");
         if (exercicios.isEmpty()) {
-            System.out.println("  Nenhum exercício adicionado.");
+            System.out.println("Nenhum exercício adicionado.");
         } else {
             for (Exercicio e : exercicios) {
-                System.out.println("  - " + e.toString());
+                System.out.println("\n------------------");
+                e.exibirDetalhes();
             }
         }
         System.out.println("Carga total (volume): " + calcularCargaTotal() + " kg");
@@ -69,4 +64,5 @@ public class Treino {
         return "Treino: " + nome + " | Exercícios: " + exercicios.size();
     }
 }
+
 
