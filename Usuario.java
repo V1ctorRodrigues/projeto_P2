@@ -11,14 +11,14 @@ public class Usuario {
     private ArrayList<Treino> treinos = new ArrayList<>();
 
     public Usuario(String nome, int idade, double peso, double altura, String objetivo, String anotacoes) {
-        try{
-            if (nome == null || nome.trim().isEmpty())
+       
+        if (nome == null || nome.trim().isEmpty())
                 throw new AppException("Nome não pode ser vazio");
-            if (idade <= 0)
+        if (idade <= 0)
                 throw new AppException("Idade deve ser maior que zero");
-            if (peso <= 0) 
+        if (peso <= 0) 
                 throw new AppException("Peso deve ser maior que zero");
-            if (altura <= 0) 
+        if (altura <= 0) 
                 throw new AppException("Altura deve ser maior que zero");
         
         this.nome = nome;
@@ -27,9 +27,7 @@ public class Usuario {
         this.altura = altura;
         this.objetivo = objetivo;
         this.anotacoes = anotacoes;
-        }catch (AppException e) {
-            System.out.println("Erro ao criar usúario" + e.getMessage());
-        }
+       
     }
 
     // Getters
@@ -51,56 +49,29 @@ public class Usuario {
 
     // Métodos
     public void adicionarTreino(Treino treino){
-       try {
-            if (treino == null) {
-                throw new AppException("Erro: o treino não pode ser nulo.");
-            }
-
-            treinos.add(treino);
-            System.out.println("Treino adicionado com sucesso.");
-
-        } catch (AppException e) {
-            System.out.println("Falha ao adicionar treino: " + e.getMessage());
-        }
+       if (treino == null ||  nomeTreino.isEmpty())
+           throw new AppException("Nome do treino Inválido");
+       treinos.add(treino);
     }
+           
+    
 
     public Treino buscarTreino(String nomeTreino){
-         try {
-            if (nomeTreino == null || nomeTreino.isEmpty()) {
-                throw new AppException("O nome do treino não pode ser vazio.");
-            }
-
-            for (Treino t : treinos) {
-                if (t.getNome().equalsIgnoreCase(nomeTreino)) {
-                    return t;
-                }
-            }
-
-            throw new AppException("Treino não encontrado.");
-
-        } catch (AppException e) {
-            System.out.println("Erro ao buscar treino: " + e.getMessage());
-            return null;
-        }
+        if (nomeTreino == null || nomeTreino.isEmpty()) 
+            throw new AppException("O nome do treino não pode ser vazio.");
+        return treinos.stream()
+               .filter(t -> t.getNome().equalsIgnoreCase(nomeTreino))
+               .findFirst()
+               .orElseThrow(() -> new AppException("Treino não encontrado"));
     }
 
+          
 
 
     public void exibirTreino(String nomeTreino){
-         try {
-            Treino t = buscarTreino(nomeTreino);
-
-            if (t == null) {
-                throw new AppException("Não foi possível exibir porque o treino não existe.");
-            }
-
-            t.exibirResumoTreino();
-
-        } catch (AppException e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
+        Treino t = buscarTreino(nomeTreino);
+        t.exibirResumoTreino();
     }
-
     @Override
     public String toString() {
         return  "Nome: " + nome +
