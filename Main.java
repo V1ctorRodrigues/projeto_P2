@@ -40,8 +40,12 @@ public class Main {
         System.out.println(usuario);
 
         System.out.println("\n=== Resumo dos Treinos ===");
-        usuario.exibirTreino("Treino A - 10/01/2025");
-        usuario.exibirTreino("Treino B - 12/01/2025");
+        try{
+            usuario.exibirTreino("Treino A - 10/01/2025");
+            usuario.exibirTreino("Treino B - 12/01/2025");
+        }catch (AppException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
 
         Relatorio relatorio = new Relatorio(usuario, usuario.getTreinos());
         relatorio.gerarRelatorioProgresso();
